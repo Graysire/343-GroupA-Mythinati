@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //any card that can be part of a deck
-public class Card : MonoBehaviour
+public class Card
 {
 
+    string cardName;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public Card(string name)
     {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        cardName = name;
     }
 
 }
