@@ -17,7 +17,7 @@ public class GeneralGroup : Group
     //returns the resistance of this group
     public int GetResistance()
     {
-        return resistance
+        return resistance;
     }
 
 }

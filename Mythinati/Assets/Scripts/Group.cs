@@ -47,6 +47,7 @@ public class Group : Card
     public void StartTurn()
     {
         treasury += income;
+        hasAttacked = false;
         for(int i = 0; i < 4; i++)
         {
             //start turn for connected groups
@@ -86,9 +87,6 @@ public class Group : Card
 
         }
 
-        
-
-
         //decrease target number based on proximity to Central Group
         if (target.distanceFromCentral == 1)
         {
@@ -117,12 +115,12 @@ public class Group : Card
         //prompt other players for Interference
         //prompt source player for Privilege
 
+        //determine if attack fails, exit if true
         if (diceRoll > targetNumber)
         {
             Debug.Log("Attack Failed");
             return;
         }
-
 
         switch (atk)
         {
@@ -133,10 +131,11 @@ public class Group : Card
                 break;
             case AttackType.Destroy:
                 targetNumber = power - target.power;
-                //target.ResetControl(true)
+                target.ResetControl();
+                //move to destroyed pile
                 break;
             case AttackType.Neutralize:
-                //target.ResetControl(false);
+               target.ResetControl();
                 break;
             default:
                 targetNumber = power - target.GetResistance();
@@ -146,12 +145,110 @@ public class Group : Card
 
     }
 
+    //resets the control of this and its subordinate groups to false
+    void ResetControl()
+    {
+        isControlled = false;
+        treasury = 0;
+        hasAttacked = false;
+        distanceFromCentral = -1;
+        for (int i = 0; i < 4; i++)
+        {
+            //checks for groups to reset and removes itself from the parent group
+            if (connectingGroups[i] != null && connectingDirections[i] == 1)
+            {
+                connectingGroups[i].ResetControl();
+            }
+            else if (connectingGroups != null && connectingDirections[i] == -1)
+            {
+                connectingGroups[i].RemoveGroup(this);
+            }
+        }
+    }
+
+    //removes a specific group from the connecting groups
+    void RemoveGroup(Group other)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            //checks for the group to remove
+            if (connectingGroups[i] == other)
+            {
+                connectingGroups[i] = null;
+            }
+        }
+    }
+
+    public bool GetAlignmentOpposition(Alignment first, Alignment second)
+    {
+        switch (first)
+        {
+            case Alignment.Government:
+                if (second == Alignment.Communist)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Communist:
+                if (second == Alignment.Government)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Liberal:
+                if (second == Alignment.Conservative)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Conservative:
+                if (second == Alignment.Liberal)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Violent:
+                if (second == Alignment.Peaceful)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Peaceful:
+                if (second == Alignment.Violent)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Weird:
+                if (second == Alignment.Straight)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Straight:
+                if (second == Alignment.Weird)
+                {
+                    return true;
+                }
+                return false;
+            case Alignment.Fanatic:
+                if (second == Alignment.Fanatic)
+                {
+                    return true;
+                }
+                return false;
+            default:
+                return false;
+        }
+    }
 
 }
 
 public enum Alignment
 {
-    Government, Communist, Liberal, Conservative, Peacful, Violent, Straight, Weird, Criminal, Fanatic, None
+    Government, Communist, Liberal, Conservative, Peaceful, Violent, Straight, Weird, Criminal, Fanatic, None
+
+    
 }
 
 //enums used to determinethe tpye of attack
