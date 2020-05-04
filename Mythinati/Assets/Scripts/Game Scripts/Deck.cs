@@ -229,6 +229,12 @@ public class Deck : MonoBehaviour
                 connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 0;
                 cards.Add(new GeneralGroup("Fraternal Orders", 3, 0, 5, 2, connectDirect, alignList));
 
+                alignList.Add(Alignment.Weird);
+
+                connectDirect[0] = 0; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 1;
+                cards.Add(new GeneralGroup("Flat Earthers", 1, 0, 2, 1, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Weird);
                 alignList.Add(Alignment.Violent);
 
                 connectDirect[0] = 0; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 1;
@@ -283,11 +289,173 @@ public class Deck : MonoBehaviour
                 //Can transfer money to anywhere
                 cards.Add(new GeneralGroup("Federal Reserve", 5, 3, 7, 6, connectDirect, alignList));
 
-                //alignList contains Government
+                alignList.Add(Alignment.Weird);
+                alignList.Add(Alignment.Liberal);
+
+                connectDirect[0] = 1; connectDirect[1] = 0; connectDirect[2] = 1; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("California", 5, 0, 4, 5, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Weird);
+                alignList.Remove(Alignment.Liberal);
+                alignList.Add(Alignment.Straight);
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 0;
+                cards.Add(new GeneralGroup("F.B.I.", 4, 2, 6, 0, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Straight);
+                alignList.Add(Alignment.Criminal);
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 0;
+                //Other players pay controlling player 2 Currency from any group
+                cards.Add(new GeneralGroup("I.R.S.", 5, 3, 5, 0, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Government);
+
+                connectDirect[0] = 1; connectDirect[1] = 1; connectDirect[2] = 1; connectDirect[3] = -1;
+                //+4 Control Punk Rockers, Cycle Gangs, Hollywood
+                cards.Add(new GeneralGroup("International Cocaine Smugglers", 3, 0, 5, 5, connectDirect, alignList));
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 0;
+                //+4 Control Post Office
+                cards.Add(new GeneralGroup("Junk Mail", 1, 0, 3, 2, connectDirect, alignList));
+
+                alignList.Add(Alignment.Liberal);
+
+                connectDirect[0] = 0; connectDirect[1] = 0; connectDirect[2] = 0; connectDirect[3] = -1;
+                //+3 Control/Neutralize/Destroy Phone Company
+                cards.Add(new GeneralGroup("Phone Phreaks", 0, 1, 1, 1, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Liberal);
+                alignList.Add(Alignment.Weird);
+
+                connectDirect[0] = 0; connectDirect[1] = 0; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("The Men In Black", 0, 2, 6, 1, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Weird);
+                alignList.Add(Alignment.Violent);
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 1;
+                //+3 Direct Control Criminal
+                cards.Add(new GeneralGroup("The Mafia", 7, 0, 7, 6, connectDirect, alignList));
+
+                connectDirect[0] = 0; connectDirect[1] = 1; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Loan Sharks", 5, 0, 5, 6, connectDirect, alignList));
+
+                alignList.Add(Alignment.Communist);
+
+                connectDirect[0] = 0; connectDirect[1] = 1; connectDirect[2] = 1; connectDirect[3] = -1;
+                //+3 Destroy Any
+                cards.Add(new GeneralGroup("Clone Arrangers", 6, 2, 6, 1, connectDirect, alignList));
+
+                alignList.Add(Alignment.Liberal);
+                alignList.Add(Alignment.Weird);
+
+                connectDirect[0] = 0; connectDirect[1] = 0; connectDirect[2] = 0; connectDirect[3] = -1;
+                //+1 Destroy Any
+                cards.Add(new GeneralGroup("Semiconscious Liberation Army", 0, 0, 8, 0, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Liberal);
+                alignList.Remove(Alignment.Weird);
+                alignList.Remove(Alignment.Criminal);
+
+                connectDirect[0] = 0; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 0;
+                //+2 Destroy Any
+                cards.Add(new GeneralGroup("KGB", 2, 2, 6, 0, connectDirect, alignList));
+
+                connectDirect[0] = 0; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 0;
+                cards.Add(new GeneralGroup("Robot Sea Monsters", 0, 0, 6, 2, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Violent);
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 0;
+                //Act as Government when attempting to control Government
+                cards.Add(new GeneralGroup("Chinese Campaign Donors", 3, 0, 2, 3, connectDirect, alignList));
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 1;
+                //+3 Control Communist
+                cards.Add(new GeneralGroup("International Communist Conspiracy", 7, 0, 8, 6, connectDirect, alignList));
+
+                connectDirect[0] = 1; connectDirect[1] = 1; connectDirect[2] = 0; connectDirect[3] = -1;
+                //On turn add/Remove/Reverse Alignment of One Group in play
+                cards.Add(new GeneralGroup("Orbital Mind Control Laser", 4, 2, 5, 0, connectDirect, alignList));
+
+                alignList.Add(Alignment.Liberal);
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 0;
+                cards.Add(new GeneralGroup("Underground Newspapers", 1, 1, 5, 0, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Liberal);
+                alignList.Add(Alignment.Fanatic);
+
+                connectDirect[0] = 1; connectDirect[1] = 1; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Fiendish Fluoridators", 3, 0, 5, 1, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Communist);
+
+                connectDirect[0] = 1; connectDirect[1] = 0; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Libertarians", 1, 0, 4, 1, connectDirect, alignList));
+
+                alignList.Add(Alignment.Straight);
+
+                connectDirect[0] = 0; connectDirect[1] = -1; connectDirect[2] = 1; connectDirect[3] = 1;
+                //+3 Direct Control Moral Minority
+                cards.Add(new GeneralGroup("TV Preachers", 3, 0, 6, 4, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Straight);
+                alignList.Add(Alignment.Violent);
+
+                connectDirect[0] = 0; connectDirect[1] = 1; connectDirect[2] = 1; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Professional Sports", 2, 0, 4, 3, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Violent);
+                alignList.Add(Alignment.Weird);
+
+                connectDirect[0] = 0; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 0;
+                cards.Add(new GeneralGroup("Trekkies", 0, 0, 4, 3, connectDirect, alignList));
+
+                connectDirect[0] = 1; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 0;
+                //+3 Neutralize Any
+                cards.Add(new GeneralGroup("Hackers", 1, 1, 4, 2, connectDirect, alignList));
+
+                connectDirect[0] = 0; connectDirect[1] = 0; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Intellectuals", 0, 0, 3, 1, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Weird);
+                alignList.Add(Alignment.Peaceful);
+
+                connectDirect[0] = 0; connectDirect[1] = 0; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Goldfish Fanciers", 0, 0, 4, 1, connectDirect, alignList));
+
+                connectDirect[0] = 1; connectDirect[1] = 0; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Moonies", 2, 0, 4, 3, connectDirect, alignList));
+
+                alignList.Remove(Alignment.Fanatic);
+
+                connectDirect[0] = 0; connectDirect[1] = 1; connectDirect[2] = 0; connectDirect[3] = -1;
+                cards.Add(new GeneralGroup("Fnord Motor Company", 2, 0, 4, 2, connectDirect, alignList));
+
+                connectDirect[0] = 0; connectDirect[1] = -1; connectDirect[2] = 0; connectDirect[3] = 1;
+                cards.Add(new GeneralGroup("Copy Shops", 1, 0, 3, 4, connectDirect, alignList));
+
+                //placeholders for special cards
+                cards.Add(new Card("Assassination"));
+                cards.Add(new Card("Bribery"));
+                cards.Add(new Card("Computer Espionage"));
+                cards.Add(new Card("Deep Agent"));
+                cards.Add(new Card("Interference"));
+                cards.Add(new Card("Interference"));
+                cards.Add(new Card("Market Manipulation"));
+                cards.Add(new Card("Media Campaign"));
+                cards.Add(new Card("Murphy's Law"));
+                cards.Add(new Card("Secrets Man Was Not Meant To Know"));
+                cards.Add(new Card("Senate Investigating Committee"));
+                cards.Add(new Card("Slush Fund"));
+                cards.Add(new Card("Swiss Bank Account"));
+                cards.Add(new Card("Whispering Campaign"));
+                cards.Add(new Card("White Collar Crime"));
 
 
 
-                Debug.Log(cards.Count + " / 83 Complete");
                 return;
         }
     }
