@@ -29,7 +29,9 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             //randomly select a card and add it to the new deck
-            newCards.Add(cards[Random.Range(0, cards.Count - 1)]);
+            Card temp = cards[Random.Range(0, cards.Count - 1)];
+            newCards.Add(temp);
+            cards.Remove(temp);
         }
         //set the deck card list to the new card list
         cards = newCards;

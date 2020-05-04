@@ -29,12 +29,15 @@ public class Player : MonoBehaviour
 
     public void EndTurn()
     {
-        //CheckWinCondition
+        if (CheckWinCondition(goal) || CheckWinCondition(WinCondition.General))
+        {
+            //win
+        }
     }
 
-    public bool CheckWinCondition()
+    public bool CheckWinCondition(WinCondition condition)
     {
-        switch (goal)
+        switch (condition)
         {
             case WinCondition.Bavarian:
                 if (centralGroup.GetTotalPower() >= 35)
@@ -84,7 +87,7 @@ public class Player : MonoBehaviour
 
     public enum WinCondition
     {
-        Bavarian,Bermuda,Discordian,Gnomes,Network,Servants,Assassins
+        Bavarian,Bermuda,Discordian,Gnomes,Network,Servants,Assassins,General
     }
 }
 
