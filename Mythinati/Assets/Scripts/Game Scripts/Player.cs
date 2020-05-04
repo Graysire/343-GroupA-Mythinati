@@ -19,4 +19,10 @@ public class Player : MonoBehaviour
     {
         
     }
+
+    public void StartTurn()
+    {
+        centralGroup.StartTurn();
+        actionsRemaining = 2;
+    }
 }

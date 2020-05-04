@@ -28,14 +28,14 @@ public class Group : Card
     //the list of alignments this group is
     List<Alignment> alignments;
 
-    public Group(string name, int pow, int transferable, int income, int[] connectDirect, Group[] connectGroup, List<Alignment> align) : base(name)
+    public Group(string name, int pow, int transferable, int income, int[] connectDirect, List<Alignment> align) : base(name)
     {
         power = pow;
         transferablePower = transferable;
         this.income = income;
         treasury = 0;
         connectingDirections = connectDirect;
-        connectingGroups = connectGroup;
+        connectingGroups = new Group[4];
         alignments = align;
 
         isControlled = false;

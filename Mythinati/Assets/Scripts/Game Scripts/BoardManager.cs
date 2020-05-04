@@ -5,10 +5,12 @@ using UnityEngine;
 //manages all decks and players within the game
 public class BoardManager : MonoBehaviour
 {
+    public Deck generalDeck;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        generalDeck.fillDeck(DeckType.General);
     }
 
     // Update is called once per frame

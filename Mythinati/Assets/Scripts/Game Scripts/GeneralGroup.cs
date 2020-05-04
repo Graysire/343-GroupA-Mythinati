@@ -9,7 +9,7 @@ public class GeneralGroup : Group
     //how well the group resists control neutralization and destruction
     protected int resistance;
 
-    public GeneralGroup(string name, int pow, int transferable, int resist, int income, int[] connectDirect, Group[] connectGroup, List<Alignment> align) : base(name, pow, transferable, income, connectDirect, connectGroup, align)
+    public GeneralGroup(string name, int pow, int transferable, int resist, int income, int[] connectDirect, List<Alignment> align) : base(name, pow, transferable, income, connectDirect, align)
     {
         resistance = resist;
     }
