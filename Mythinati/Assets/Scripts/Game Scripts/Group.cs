@@ -15,11 +15,13 @@ public class Group : Card
     //how much currency this card has stored
     protected int treasury;
     //whether this card is controlled
-    protected bool isControlled;
+    protected Player controller;
     //distance from Central Group
     protected int distanceFromCentral;
     //whether this card has attacked this turn
     protected bool hasAttacked;
+    //the number of Groups this group has successfully destroyed
+    protected int groupsDestroyed;
 
     //the directions this card can connect to -1 is recieving, 0 is none, 1 is sending
     int[] connectingDirections = new int[4];
@@ -38,9 +40,10 @@ public class Group : Card
         connectingGroups = new Group[4];
         alignments = align;
 
-        isControlled = false;
+        controller = null;
         distanceFromCentral = -1;
         hasAttacked = false;
+        groupsDestroyed = 0;
     }
 
     //the start of turn operations all groups
@@ -127,12 +130,14 @@ public class Group : Card
             case AttackType.Control:
                 //prompt selection of arrow to control target from
                 target.treasury /= 2;
+                target.controller = this.controller;
                 //prompt free transfer
                 break;
             case AttackType.Destroy:
                 targetNumber = power - target.power;
                 target.ResetControl();
-                //move to destroyed pile
+                groupsDestroyed++;
+                //move target to destroyed pile
                 break;
             case AttackType.Neutralize:
                target.ResetControl();
@@ -148,7 +153,7 @@ public class Group : Card
     //resets the control of this and its subordinate groups to false
     void ResetControl()
     {
-        isControlled = false;
+        controller = null;
         treasury = 0;
         hasAttacked = false;
         distanceFromCentral = -1;
@@ -178,6 +183,119 @@ public class Group : Card
             }
         }
     }
+
+    //gets the total power of all groups in the hierarchy
+    public int GetTotalPower()
+    {
+        int sum = power;
+        //for each subgroup, add its power
+        for (int i = 0; i < 4; i++)
+        {
+            if (connectingGroups[i] != null && connectingDirections[i] == 1)
+            {
+                sum += connectingGroups[i].GetTotalPower();
+            }
+        }
+        return sum;
+    }
+
+    //gets the list of all alignments in the hierarchy
+    public List<Alignment> GetTotalAlignments()
+    {
+        List<Alignment> align = new List<Alignment>();
+        //add all alignments except for None
+        foreach (Alignment a in alignments)
+        {
+            if (a != Alignment.None)
+            {
+                align.Add(a);
+            }
+        }
+        //for each subgroup add its alignments
+        for (int i = 0; i < 4; i++)
+        {
+            if (connectingGroups[i] != null && connectingDirections[i] == 1)
+            {
+                List<Alignment> connectAlign = connectingGroups[i].GetTotalAlignments();
+                foreach (Alignment a in connectAlign)
+                {
+                    if (!align.Contains(a) && a != Alignment.None)
+                    {
+                        align.Add(a);
+                    }
+                }
+            }
+        }
+
+        return align;
+    }
+
+    //gets the total number of groups in the hierarchy with a specified alignment
+    public int GetTotalAlignments(Alignment alignment)
+    {
+        int sum = 0;
+        if (alignments.Contains(alignment))
+        {
+            sum++;
+        }
+
+        //for each subgroup, check whether it contains the alignment
+        for (int i = 0; i < 4; i++)
+        {
+            if (connectingGroups[i] != null && connectingDirections[i] == 1)
+            {
+                sum += connectingGroups[i].GetTotalAlignments(alignment);
+            }
+        }
+
+        return sum;
+    }
+
+    //gets the total transferable power of all groups in the hierarchy
+    public int GetTotalTransferablePower()
+    {
+        int sum = transferablePower;
+        //for each subgroup, add its power
+        for (int i = 0; i < 4; i++)
+        {
+            if (connectingGroups[i] != null && connectingDirections[i] == 1)
+            {
+                sum += connectingGroups[i].GetTotalTransferablePower();
+            }
+        }
+        return sum;
+    }
+
+    //gets the total currency of all groups in the hierarchy
+    public int GetTotalTreasury()
+    {
+        int sum = treasury;
+        //for each subgroup, add its power
+        for (int i = 0; i < 4; i++)
+        {
+            if (connectingGroups[i] != null && connectingDirections[i] == 1)
+            {
+                sum += connectingGroups[i].GetTotalTreasury();
+            }
+        }
+        return sum;
+    }
+
+    //gets the total number of groups destroyed in the hierarchy
+    public int GetTotalGroupsDestroyed()
+    {
+        int sum = groupsDestroyed;
+        //for each subgroup, add its power
+        for (int i = 0; i < 4; i++)
+        {
+            if (connectingGroups[i] != null && connectingDirections[i] == 1)
+            {
+                sum += connectingGroups[i].GetTotalGroupsDestroyed();
+            }
+        }
+        return sum;
+    }
+
 
     public bool GetAlignmentOpposition(Alignment first, Alignment second)
     {

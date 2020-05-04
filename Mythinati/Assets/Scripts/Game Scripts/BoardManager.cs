@@ -11,6 +11,7 @@ public class BoardManager : MonoBehaviour
     void Start()
     {
         generalDeck.fillDeck(DeckType.General);
+        generalDeck.ShuffleDeck();
     }
 
     // Update is called once per frame

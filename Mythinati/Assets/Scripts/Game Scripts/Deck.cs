@@ -33,10 +33,10 @@ public class Deck : MonoBehaviour
         }
         //set the deck card list to the new card list
         cards = newCards;
-        Debug.Log("Deck " + deckName + " Shuffled");
+        Debug.Log("Deck " + deckName + " Shuffled, Contains " + cards.Count + " Cards");
     }
 
-    public void DrawCard(/*Player drawer */)
+    public void DrawCard(Player drawer)
     {
         //check the type of card and act accordingly
         if (cards[0].GetType() == typeof(GeneralGroup))
@@ -48,6 +48,9 @@ public class Deck : MonoBehaviour
         else //this means the card is one ofthe special cards
         {
             //put card into the drawing player's hand
+            drawer.specialCards.Add(cards[0]);
+            //remove card[0] from the deck
+            cards.RemoveAt(0);
         }
     }
 
@@ -453,8 +456,6 @@ public class Deck : MonoBehaviour
                 cards.Add(new Card("Swiss Bank Account"));
                 cards.Add(new Card("Whispering Campaign"));
                 cards.Add(new Card("White Collar Crime"));
-
-
 
                 return;
         }
