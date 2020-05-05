@@ -129,6 +129,10 @@ public class Group : Card
         {
             case AttackType.Control:
                 //prompt selection of arrow to control target from
+                if (target.controller == null)
+                {
+                    BoardManager.uncontrolledDeck.RemoveCard(target);
+                }
                 target.treasury /= 2;
                 target.controller = this.controller;
                 //prompt free transfer
@@ -136,6 +140,7 @@ public class Group : Card
             case AttackType.Destroy:
                 targetNumber = power - target.power;
                 target.ResetControl();
+                BoardManager.destroyedDeck.AddCard(target);
                 groupsDestroyed++;
                 //move target to destroyed pile
                 break;
@@ -169,6 +174,7 @@ public class Group : Card
                 connectingGroups[i].RemoveGroup(this);
             }
         }
+        BoardManager.uncontrolledDeck.AddCard(this);
     }
 
     //removes a specific group from the connecting groups

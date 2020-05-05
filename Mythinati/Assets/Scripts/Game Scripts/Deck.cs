@@ -5,21 +5,23 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
     List<Card> cards = new List<Card>();
-    public string deckName;
+    string deckName;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public Deck(string name)
     {
-        
+        deckName = name;
+    }
+    
+
+    public void AddCard(Card card)
+    {
+        cards.Add(card);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RemoveCard(Card card)
     {
-        
+        cards.Remove(card);
     }
-
 
     public void ShuffleDeck()
     {
